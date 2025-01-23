@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f9fafb;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            background: #fff;
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section, .result-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e1e1e1;
+        }
+
+        .form-section h2, .result-section h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+            color: #555;
+        }
+
+        .slider-group input {
+            width: 100%;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #666;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .result-section .price {
+            font-size: 32px;
+            font-weight: bold;
+            color: #007bff;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        button {
+            margin-top: 30px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Form Section -->
+        <div class="form-section">
+            <h2>Price Calculator</h2>
+            <div class="form-group">
+                <label>Numero di volumi</label>
+                <input type="number" id="numVolumes" min="1" value="1">
+            </div>
+
+            <div class="form-group">
+                <label>Materiale</label>
+                <select id="material">
+                    <option value="10">CARTA/SIMILPELLE/SIMILSETA/TELA</option>
+                    <option value="20">SETA/CANAPA/VELLUTO</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Logo Universita</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="logo" value="5"> Yes (+$5)</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Grammatura</label>
+                <select id="grammatura">
+                    <option value="0">80g/m²</option>
+                    <option value="10">100g/m²</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Numero di pagine b/n</label>
+                <input type="number" id="numPagesBn" min="0" value="0">
+            </div>
+
+            <div class="form-group">
+                <label>Numero di pagine a colori</label>
+                <input type="number" id="numPagesColor" min="0" value="0">
+            </div>
+
+            <button type="button" onclick="updatePrice()">Recalculate</button>
+        </div>
+
+        <!-- Result Section -->
+        <div class="result-section">
+            <h2>Calculated Price</h2>
+            <span class="price" id="totalPrice">$0.00</span>
+            <p>This is the total calculated price based on the selected options.</p>
+        </div>
+    </div>
+
+    <script>
+        function updatePrice() {
+            const numVolumes = parseInt(document.getElementById("numVolumes").value);
+            const material = document.getElementById("material").value;
+            const logoPrice = document.getElementById("logo").checked ? parseFloat(document.getElementById("logo").value) : 0;
+            const grammatura = document.getElementById("grammatura").value;
+            const numPagesBn = parseInt(document.getElementById("numPagesBn").value);
+            const numPagesColor = parseInt(document.getElementById("numPagesColor").value);
+
+            let basePrice = 0;
+
+            if (material === "10") {
+                if (numVolumes === 1) basePrice = 24;
+                else if (numVolumes === 2) basePrice = 36;
+                else if (numVolumes === 3) basePrice = 48;
+                else if (numVolumes === 4) basePrice = 60;
+                else basePrice = 60 + (numVolumes - 4) * 11;
+            } else if (material === "20") {
+                if (numVolumes === 1) basePrice = 28;
+                else if (numVolumes === 2) basePrice = 43;
+                else if (numVolumes === 3) basePrice = 58;
+                else if (numVolumes === 4) basePrice = 70;
+                else basePrice = 70 + (numVolumes - 4) * 12;
+            }
+
+            let pricePerPageBn = 0;
+            let pricePerPageColor = 0;
+
+            if (grammatura === "0") {
+                pricePerPageBn = 0.07;
+                pricePerPageColor = 0.28;
+            } else if (grammatura === "10") {
+                pricePerPageBn = 0.09;
+                pricePerPageColor = 0.28;
+            }
+
+            const total = basePrice + logoPrice + (numPagesBn * pricePerPageBn) + (numPagesColor * pricePerPageColor);
+
+            document.getElementById("totalPrice").innerText = `€${total.toFixed(2)}`;
+        }
+
+        // Attach updatePrice to inputs
+        document.querySelectorAll("input, select").forEach(input => {
+            input.addEventListener("input", updatePrice);
+        });
+
+        // Initialize
+        updatePrice();
+    </script>
+</body>
+</html>

@@ -33,6 +33,7 @@
             border-radius: 15px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
             margin-top: 20px;
+            box-sizing: border-box; /* Ensure padding is included in width */
         }
 
         .content {
@@ -51,6 +52,7 @@
             border-radius: 10px;
             border: 1px solid rgba(229, 200, 152, 0.9);
             min-width: 300px; /* Ensure minimum width for readability */
+            box-sizing: border-box; /* Ensure padding is included in width */
         }
 
         .form-section h2, .result-section h2, .additional-info h2 {
@@ -115,6 +117,7 @@
             border-radius: 10px;
             border: 1px solid rgba(229, 200, 152, 0.9);
             margin-top: 20px;
+            box-sizing: border-box; /* Ensure padding is included in width */
         }
 
         @media (max-width: 600px) {
@@ -151,7 +154,7 @@
                 <div class="form-group">
                     <label>Logo università</label>
                     <div class="checkbox-group">
-                        <label><input type="checkbox" id="logo" value="5"> Sì</label>
+                        <label><input type="checkbox" id="logo" value="5">Sì</label>
                     </div>
                 </div>
 
@@ -188,8 +191,8 @@
                         <option value="cusl.bovisa@fondazionesun.com" data-phone="+393423927673">CUSL Bovisa</option>
                     </select>
                 </div>
-                <button onclick="showAdditionalInfo()">📧 Contattaci tramite email</button>
-                <button onclick="callShop()">📞 Chiama il punto vendita</button>
+                <button onclick="showAdditionalInfo()">Contattaci tramite email 📧</button>
+                <button onclick="callShop()">Chiama il punto vendita 📞</button>
             </div>
         </div>
         <div class="additional-info" id="additionalInfo">
@@ -209,14 +212,14 @@
             <div class="form-group">
                 <label>Fronte e retro</label>
                 <div class="checkbox-group">
-                    <label><input type="checkbox" id="fronte/retro"> Sì</label>
+                    <label><input type="checkbox" id="fronte/retro">Sì</label>
                 </div>
             </div>
             <div class="form-group">
                 <label>Carica il tuo file PDF</label>
                 <input type="file" id="pdfFile" accept="application/pdf">
             </div>
-            <button onclick="sendFinalEmail()">📧 Invia Email</button>
+            <button onclick="sendFinalEmail()">Invia Email 📧</button>
         </div>
     </div>
 
@@ -283,7 +286,7 @@
             const duplex = document.getElementById("duplex").checked ? "Sì" : "No";
 
             const subject = "Ordine Tesi CUSL";
-            const body = `Numero di volumi: ${numVolumes}\nMateriale: ${material}\nLogo università: ${logo}\nGrammatura: ${grammatura}g/m²\nNumero di pagine in bianco e nero: ${numPagesBn}\nNumero di pagine a colori: ${numPagesColor}\nPrezzo totale: ${totalPrice}\n\nInformazioni aggiuntive:\nNome: ${name}\nCognome: ${surname}\nTelefono: ${phone}\nFronte e retro: ${duplex}`;
+            const body = `Nome: ${name}\nCognome: ${surname}\nTelefono: ${phone}\nNumero di volumi: ${numVolumes}\nMateriale: ${material}\nLogo università: ${logo}\nGrammatura: ${grammatura}g/m²\nNumero di pagine in bianco e nero: ${numPagesBn}\nNumero di pagine a colori: ${numPagesColor}\nFronte e retro: ${duplex}\nPrezzo totale: ${totalPrice}`;
 
             const mailtoLink = `mailto:${shop}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 

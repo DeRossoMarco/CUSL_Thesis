@@ -125,6 +125,19 @@
             box-sizing: border-box; /* Ensure padding is included in width */
         }
 
+        .language-switch {
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+            padding: 10px;
+        }
+
+        .language-switch span {
+            font-size: 24px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
         @media (max-width: 600px) {
             .content {
                 flex-direction: column; /* Stack sections vertically on small screens */
@@ -137,61 +150,81 @@
     </style>
 </head>
 <body>
+    <div class="language-switch">
+        <span onclick="switchLanguage('it')">🇮🇹</span>
+        <span onclick="switchLanguage('en')">🇬🇧</span>
+    </div>
     <div class="container">
         <img src="images/logo.jpg" alt="Header Image" class="header-image">
         <div class="content">
             <!-- Form Section -->
             <div class="form-section">
-                <h2>Come vuoi la tua tesi?</h2>
+                <h2 data-lang="it">Come vuoi la tua tesi?</h2>
+                <h2 data-lang="en" style="display: none;">How do you want your thesis?</h2>
                 <div class="form-group">
-                    <label class="required">Numero di volumi</label>
+                    <label class="required" data-lang="it">Numero di volumi</label>
+                    <label class="required" data-lang="en" style="display: none;">Number of volumes</label>
                     <input type="number" id="numVolumes" min="1" value="1" inputmode="numeric" required>
                 </div>
 
                 <div class="form-group">
-                    <label class="required">Materiale</label>
+                    <label class="required" data-lang="it">Materiale</label>
+                    <label class="required" data-lang="en" style="display: none;">Material</label>
                     <select id="material" required>
-                        <option value="" disabled selected>Seleziona il materiale</option>
-                        <option value="0">Carta/Similpelle/Similseta/Tela</option>
-                        <option value="1">Seta/Canapa/Velluto</option>
+                        <option value="" disabled selected data-lang="it">Seleziona il materiale</option>
+                        <option value="" disabled selected data-lang="en" style="display: none;">Select material</option>
+                        <option value="0" data-lang="it">Carta/Similpelle/Similseta/Tela</option>
+                        <option value="0" data-lang="en" style="display: none;">Paper/Imitation leather/Imitation silk/Cloth</option>
+                        <option value="1" data-lang="it">Seta/Canapa/Velluto</option>
+                        <option value="1" data-lang="en" style="display: none;">Silk/Hemp/Velvet</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label>Logo università</label>
+                    <label data-lang="it">Logo università</label>
+                    <label data-lang="en" style="display: none;">University logo</label>
                     <div class="checkbox-group">
-                        <label><input type="checkbox" id="logo" value="5">Sì</label>
+                        <label><input type="checkbox" id="logo" value="5"><span data-lang="it">Sì</span><span data-lang="en" style="display: none;">Yes</span></label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="required">Grammatura</label>
+                    <label class="required" data-lang="it">Grammatura</label>
+                    <label class="required" data-lang="en" style="display: none;">Weight</label>
                     <select id="grammatura" required>
-                        <option value="" disabled selected>Seleziona la grammatura</option>
-                        <option value="75">75g/m²</option>
-                        <option value="100">100g/m²</option>
+                        <option value="" disabled selected data-lang="it">Seleziona la grammatura</option>
+                        <option value="" disabled selected data-lang="en" style="display: none;">Select weight</option>
+                        <option value="75" data-lang="it">75g/m²</option>
+                        <option value="75" data-lang="en" style="display: none;">75g/m²</option>
+                        <option value="100" data-lang="it">100g/m²</option>
+                        <option value="100" data-lang="en" style="display: none;">100g/m²</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label>Numero di pagine in bianco e nero</label>
+                    <label data-lang="it">Numero di pagine in bianco e nero</label>
+                    <label data-lang="en" style="display: none;">Number of black and white pages</label>
                     <input type="number" id="numPagesBn" min="0" inputmode="numeric">
                 </div>
 
                 <div class="form-group">
-                    <label>Numero di pagine a colori</label>
+                    <label data-lang="it">Numero di pagine a colori</label>
+                    <label data-lang="en" style="display: none;">Number of color pages</label>
                     <input type="number" id="numPagesColor" min="0" inputmode="numeric">
                 </div>
             </div>
 
             <!-- Result Section -->
             <div class="result-section">
-                <h2>Ecco quanto costa la tua tesi!</h2>
+                <h2 data-lang="it">Ecco quanto costa la tua tesi!</h2>
+                <h2 data-lang="en" style="display: none;">Here is how much your thesis costs!</h2>
                 <span class="price" id="totalPrice">€0.00</span>
                 <div class="form-group">
-                    <label class="required">Segli il tuo punto vendita</label>
+                    <label class="required" data-lang="it">Segli il tuo punto vendita</label>
+                    <label class="required" data-lang="en" style="display: none;">Choose your store</label>
                     <select id="shop" required>
-                        <option value="" disabled selected>Seleziona il punto vendita</option>
+                        <option value="" disabled selected data-lang="it">Seleziona il punto vendita</option>
+                        <option value="" disabled selected data-lang="en" style="display: none;">Select store</option>
                         <option value="cusl.polileo@fondazionesun.com" data-phone="+393477592927">CUSL Polileo</option>
                         <option value="cusl.statale1@gmail.com" data-phone="+393423424401">CUSL Statale</option>
                         <option value="cusl.cattolica@fondazionesun.com" data-phone="+393441509052">CUSL Cattolica</option>
@@ -199,39 +232,51 @@
                         <option value="cusl.bovisa@fondazionesun.com" data-phone="+393423927673">CUSL Bovisa</option>
                     </select>
                 </div>
-                <button onclick="showAdditionalInfo()">Contattaci tramite email 📧</button>
-                <button onclick="callShop()">Chiama il punto vendita 📞</button>
+                <button onclick="showAdditionalInfo()" data-lang="it">Contattaci tramite email 📧</button>
+                <button onclick="showAdditionalInfo()" data-lang="en" style="display: none;">Contact us via email 📧</button>
+                <button onclick="callShop()" data-lang="it">Chiama il punto vendita 📞</button>
+                <button onclick="callShop()" data-lang="en" style="display: none;">Call the store 📞</button>
             </div>
         </div>
         <div class="additional-info" id="additionalInfo">
-            <h2>Informazioni aggiuntive</h2>
+            <h2 data-lang="it">Informazioni aggiuntive</h2>
+            <h2 data-lang="en" style="display: none;">Additional information</h2>
             <div class="form-group">
-                <label class="required">Nome</label>
+                <label class="required" data-lang="it">Nome</label>
+                <label class="required" data-lang="en" style="display: none;">First name</label>
                 <input type="text" id="name" required>
             </div>
             <div class="form-group">
-                <label class="required">Cognome</label>
+                <label class="required" data-lang="it">Cognome</label>
+                <label class="required" data-lang="en" style="display: none;">Last name</label>
                 <input type="text" id="surname" required>
             </div>
             <div class="form-group">
-                <label class="required">Telefono</label>
+                <label class="required" data-lang="it">Telefono</label>
+                <label class="required" data-lang="en" style="display: none;">Phone</label>
                 <input type="tel" id="phone" inputmode="tel" required>
             </div>
             <div class="form-group">
-                <label>Fronte e retro</label>
+                <label data-lang="it">Fronte e retro</label>
+                <label data-lang="en" style="display: none;">Duplex</label>
                 <div class="checkbox-group">
-                    <label><input type="checkbox" id="fronte/retro">Sì</label>
+                    <label><input type="checkbox" id="fronte/retro"><span data-lang="it">Sì</span><span data-lang="en" style="display: none;">Yes</span></label>
                 </div>
             </div>
             <div class="form-group">
-                <label class="required">Colore scritte copertina</label>
+                <label class="required" data-lang="it">Colore scritte copertina</label>
+                <label class="required" data-lang="en" style="display: none;">Cover text color</label>
                 <select id="coverColor" required>
-                    <option value="" disabled selected>Seleziona il colore</option>
-                    <option value="Oro">Oro</option>
-                    <option value="Argento">Argento</option>
+                    <option value="" disabled selected data-lang="it">Seleziona il colore</option>
+                    <option value="" disabled selected data-lang="en" style="display: none;">Select color</option>
+                    <option value="Oro" data-lang="it">Oro</option>
+                    <option value="Oro" data-lang="en" style="display: none;">Gold</option>
+                    <option value="Argento" data-lang="it">Argento</option>
+                    <option value="Argento" data-lang="en" style="display: none;">Silver</option>
                 </select>
             </div>
-            <button onclick="sendFinalEmail()">Invia Email 📧</button>
+            <button onclick="sendFinalEmail()" data-lang="it">Invia Email 📧</button>
+            <button onclick="sendFinalEmail()" data-lang="en" style="display: none;">Send Email 📧</button>
         </div>
     </div>
 
@@ -284,7 +329,7 @@
 
         function sendFinalEmail() {
             const numVolumes = document.getElementById("numVolumes").value || 1;
-            const material = document.getElementById("material").value === "0" ? "Carta/Similpelle/Similseta/Tela" : "Seta/Canapa/Velluto" || "Carta/Similpelle/Similseta/Tela";
+            const material = document.getElementById("material").value === "0" ? "Carta/Similpelle/Similseta/Tela" : "Seta/Canapa/Velluto";
             const logo = document.getElementById("logo").checked ? "Sì" : "No";
             const grammatura = document.getElementById("grammatura").value || "75";
             const numPagesBn = document.getElementById("numPagesBn").value || "Da controllare";
@@ -303,7 +348,7 @@
             }
 
             const subject = "Ordine Tesi CUSL - " + name + " " + surname;
-            const body = `Nome: ${name}\nCognome: ${surname}\nTelefono: ${phone}\nNumero di volumi: ${numVolumes}\nMateriale: ${material}\nLogo università: ${logo}\nGrammatura: ${grammatura}g/m²\nNumero di pagine in bianco e nero: ${numPagesBn}\nNumero di pagine a colori: ${numPagesColor}\nFronte e retro: ${duplex}\nColore scritte copertina: ${coverColor}\nPrezzo totale: ${totalPrice}`;
+            const body = `Nome: ${name}\nCognome: ${surname}\nTelefono: ${phone}\nNumero di volumi: ${numVolumes}\nMateriale: ${material}\nLogo università: ${logo}\nGrammatura: ${grammatura}g/m²\nNumero di pagine in bianco e nero: ${numPagesBn}\nNumero di pagine a colori: ${numPagesColor}\nFronte e retro: ${duplex}\nColore scritte copertina: ${coverColor}\nPrezzo totale: ${totalPrice}\n\nPer favore, allega il file PDF della tua tesi a questa email.`;
 
             const mailtoLink = `mailto:${shop}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
@@ -314,6 +359,16 @@
             const shopSelect = document.getElementById("shop");
             const phone = shopSelect.options[shopSelect.selectedIndex].getAttribute("data-phone");
             window.location.href = `tel:${phone}`;
+        }
+
+        function switchLanguage(lang) {
+            document.querySelectorAll("[data-lang]").forEach(el => {
+                if (el.getAttribute("data-lang") === lang) {
+                    el.style.display = "";
+                } else {
+                    el.style.display = "none";
+                }
+            });
         }
 
         // Attach updatePrice to inputs

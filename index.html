@@ -146,6 +146,7 @@
                 <div class="form-group">
                     <label>Materiale</label>
                     <select id="material">
+                        <option value="" disabled selected>Seleziona un materiale</option>
                         <option value="0">Carta/Similpelle/Similseta/Tela</option>
                         <option value="1">Seta/Canapa/Velluto</option>
                     </select>
@@ -161,7 +162,8 @@
                 <div class="form-group">
                     <label>Grammatura</label>
                     <select id="grammatura">
-                        <option value="80">80g/m²</option>
+                        <option value="" disabled selected>Seleziona una grammatura</option>
+                        <option value="75">75g/m²</option>
                         <option value="100">100g/m²</option>
                     </select>
                 </div>
@@ -184,6 +186,7 @@
                 <div class="form-group">
                     <label>Segli il tuo punto vendita</label>
                     <select id="shop">
+                        <option value="" disabled selected>Seleziona un punto vendita</option>
                         <option value="cusl.polileo@fondazionesun.com" data-phone="+393477592927">CUSL Polileo</option>
                         <option value="cusl.statale1@gmail.com" data-phone="+393423424401">CUSL Statale</option>
                         <option value="cusl.cattolica@fondazionesun.com" data-phone="+393441509052">CUSL Cattolica</option>
@@ -251,7 +254,7 @@
             let pricePerPageBn = 0;
             let pricePerPageColor = 0;
 
-            if (grammatura === "80") {
+            if (grammatura === "75") {
                 pricePerPageBn = 0.07;
                 pricePerPageColor = 0.28;
             } else if (grammatura === "100") {
@@ -283,9 +286,9 @@
             const name = document.getElementById("name").value;
             const surname = document.getElementById("surname").value;
             const phone = document.getElementById("phone").value;
-            const duplex = document.getElementById("duplex").checked ? "Sì" : "No";
+            const duplex = document.getElementById("fronte/retro").checked ? "Sì" : "No";
 
-            const subject = "Ordine Tesi CUSL";
+            const subject = "Ordine Tesi CUSL - " + name + " " + surname;
             const body = `Nome: ${name}\nCognome: ${surname}\nTelefono: ${phone}\nNumero di volumi: ${numVolumes}\nMateriale: ${material}\nLogo università: ${logo}\nGrammatura: ${grammatura}g/m²\nNumero di pagine in bianco e nero: ${numPagesBn}\nNumero di pagine a colori: ${numPagesColor}\nFronte e retro: ${duplex}\nPrezzo totale: ${totalPrice}`;
 
             const mailtoLink = `mailto:${shop}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;

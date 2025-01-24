@@ -171,12 +171,6 @@
                     <label class="required" data-lang="it">Materiale</label>
                     <label class="required" data-lang="en" style="display: none;">Material</label>
                     <select id="material" required>
-                        <option value="" disabled selected data-lang="it">Seleziona il materiale</option>
-                        <option value="" disabled selected data-lang="en" style="display: none;">Select material</option>
-                        <option value="0" data-lang="it">Carta/Similpelle/Similseta/Tela</option>
-                        <option value="0" data-lang="en" style="display: none;">Paper/Imitation leather/Imitation silk/Cloth</option>
-                        <option value="1" data-lang="it">Seta/Canapa/Velluto</option>
-                        <option value="1" data-lang="en" style="display: none;">Silk/Hemp/Velvet</option>
                     </select>
                 </div>
 
@@ -192,12 +186,6 @@
                     <label class="required" data-lang="it">Grammatura</label>
                     <label class="required" data-lang="en" style="display: none;">Weight</label>
                     <select id="grammatura" required>
-                        <option value="" disabled selected data-lang="it">Seleziona la grammatura</option>
-                        <option value="" disabled selected data-lang="en" style="display: none;">Select weight</option>
-                        <option value="75" data-lang="it">75g/m²</option>
-                        <option value="75" data-lang="en" style="display: none;">75g/m²</option>
-                        <option value="100" data-lang="it">100g/m²</option>
-                        <option value="100" data-lang="en" style="display: none;">100g/m²</option>
                     </select>
                 </div>
 
@@ -223,13 +211,6 @@
                     <label class="required" data-lang="it">Segli il tuo punto vendita</label>
                     <label class="required" data-lang="en" style="display: none;">Choose your store</label>
                     <select id="shop" required>
-                        <option value="" disabled selected data-lang="it">Seleziona il punto vendita</option>
-                        <option value="" disabled selected data-lang="en" style="display: none;">Select store</option>
-                        <option value="cusl.polileo@fondazionesun.com" data-phone="+393477592927">CUSL Polileo</option>
-                        <option value="cusl.statale1@gmail.com" data-phone="+393423424401">CUSL Statale</option>
-                        <option value="cusl.cattolica@fondazionesun.com" data-phone="+393441509052">CUSL Cattolica</option>
-                        <option value="cusl.settore@fondazionesun.com" data-phone="+393408452604">CUSL Settore</option>
-                        <option value="cusl.bovisa@fondazionesun.com" data-phone="+393423927673">CUSL Bovisa</option>
                     </select>
                 </div>
                 <button onclick="showAdditionalInfo()" data-lang="it">Contattaci tramite email 📧</button>
@@ -327,6 +308,93 @@
             additionalInfo.scrollIntoView({ behavior: "smooth" });
         }
 
+        let currentLanguage = "it"; // Track the current language
+
+        const materialOptions = {
+            it: [
+                { value: "", text: "Seleziona il materiale", disabled: true },
+                { value: "0", text: "Carta/Similpelle/Similseta/Tela" },
+                { value: "1", text: "Seta/Canapa/Velluto" }
+            ],
+            en: [
+                { value: "", text: "Select material", disabled: true },
+                { value: "0", text: "Paper/Imitation leather/Imitation silk/Cloth" },
+                { value: "1", text: "Silk/Hemp/Velvet" }
+            ]
+        };
+
+        const grammaturaOptions = {
+            it: [
+                { value: "", text: "Seleziona la grammatura", disabled: true },
+                { value: "75", text: "75g/m²" },
+                { value: "100", text: "100g/m²" }
+            ],
+            en: [
+                { value: "", text: "Select weight", disabled: true },
+                { value: "75", text: "75g/m²" },
+                { value: "100", text: "100g/m²" }
+            ]
+        };
+
+        const shopOptions = {
+            it: [
+                { value: "", text: "Seleziona il punto vendita", disabled: true },
+                { value: "cusl.polileo@fondazionesun.com", text: "CUSL Polileo", phone: "+393477592927" },
+                { value: "cusl.statale1@gmail.com", text: "CUSL Statale", phone: "+393423424401" },
+                { value: "cusl.cattolica@fondazionesun.com", text: "CUSL Cattolica", phone: "+393441509052" },
+                { value: "cusl.settore@fondazionesun.com", text: "CUSL Settore", phone: "+393408452604" },
+                { value: "cusl.bovisa@fondazionesun.com", text: "CUSL Bovisa", phone: "+393423927673" }
+            ],
+            en: [
+                { value: "", text: "Select store", disabled: true },
+                { value: "cusl.polileo@fondazionesun.com", text: "CUSL Polileo", phone: "+393477592927" },
+                { value: "cusl.statale1@gmail.com", text: "CUSL Statale", phone: "+393423424401" },
+                { value: "cusl.cattolica@fondazionesun.com", text: "CUSL Cattolica", phone: "+393441509052" },
+                { value: "cusl.settore@fondazionesun.com", text: "CUSL Settore", phone: "+393408452604" },
+                { value: "cusl.bovisa@fondazionesun.com", text: "CUSL Bovisa", phone: "+393423927673" }
+            ]
+        };
+
+        const additionalInfoMessages = {
+            it: "Per favore, compila tutti i campi richiesti.",
+            en: "Please fill in all required fields."
+        };
+
+        const alertMessages = {
+            it: "Per favore, seleziona un punto vendita.",
+            en: "Please select a store."
+        };
+
+        function populateSelect(selectId, options, hasPhone = false) {
+            const sel = document.getElementById(selectId);
+            sel.innerHTML = "";
+            options.forEach(opt => {
+                const el = document.createElement("option");
+                el.value = opt.value;
+                el.textContent = opt.text;
+                if (opt.disabled) el.disabled = true;
+                if (opt.disabled) el.selected = true;
+                if (hasPhone && opt.phone) {
+                    el.setAttribute("data-phone", opt.phone);
+                }
+                sel.appendChild(el);
+            });
+        }
+
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            document.querySelectorAll("[data-lang]").forEach(el => {
+                if (el.getAttribute("data-lang") === lang) {
+                    el.style.display = "";
+                } else {
+                    el.style.display = "none";
+                }
+            });
+            populateSelect("material", materialOptions[lang]);
+            populateSelect("grammatura", grammaturaOptions[lang]);
+            populateSelect("shop", shopOptions[lang], true);
+        }
+
         function sendFinalEmail() {
             const numVolumes = document.getElementById("numVolumes").value || 1;
             const material = document.getElementById("material").value === "0" ? "Carta/Similpelle/Similseta/Tela" : "Seta/Canapa/Velluto";
@@ -343,7 +411,7 @@
             const coverColor = document.getElementById("coverColor").value;
 
             if (!name || !surname || !phone || !shop || !material || !grammatura || !coverColor) {
-                alert("Per favore, compila tutti i campi richiesti.");
+                alert(additionalInfoMessages[currentLanguage]);
                 return;
             }
 
@@ -358,17 +426,11 @@
         function callShop() {
             const shopSelect = document.getElementById("shop");
             const phone = shopSelect.options[shopSelect.selectedIndex].getAttribute("data-phone");
+            if (!phone) {
+                alert(alertMessages[currentLanguage]);
+                return;
+            }
             window.location.href = `tel:${phone}`;
-        }
-
-        function switchLanguage(lang) {
-            document.querySelectorAll("[data-lang]").forEach(el => {
-                if (el.getAttribute("data-lang") === lang) {
-                    el.style.display = "";
-                } else {
-                    el.style.display = "none";
-                }
-            });
         }
 
         // Attach updatePrice to inputs
@@ -378,6 +440,7 @@
 
         // Initialize
         updatePrice();
+        switchLanguage("it");
     </script>
 </body>
 </html>

@@ -248,12 +248,6 @@
                 <label class="required" data-lang="it">Colore scritte copertina</label>
                 <label class="required" data-lang="en" style="display: none;">Cover text color</label>
                 <select id="coverColor" required>
-                    <option value="" disabled selected data-lang="it">Seleziona il colore</option>
-                    <option value="" disabled selected data-lang="en" style="display: none;">Select color</option>
-                    <option value="Oro" data-lang="it">Oro</option>
-                    <option value="Oro" data-lang="en" style="display: none;">Gold</option>
-                    <option value="Argento" data-lang="it">Argento</option>
-                    <option value="Argento" data-lang="en" style="display: none;">Silver</option>
                 </select>
             </div>
             <button onclick="sendFinalEmail()" data-lang="it">Invia Email 📧</button>
@@ -326,13 +320,13 @@
         const grammaturaOptions = {
             it: [
                 { value: "", text: "Seleziona la grammatura", disabled: true },
-                { value: "75", text: "75g/m²" },
-                { value: "100", text: "100g/m²" }
+                { value: "75", text: "75 g/m²" },
+                { value: "100", text: "100 g/m²" }
             ],
             en: [
                 { value: "", text: "Select weight", disabled: true },
-                { value: "75", text: "75g/m²" },
-                { value: "100", text: "100g/m²" }
+                { value: "75", text: "75 g/m²" },
+                { value: "100", text: "100 g/m²" }
             ]
         };
 
@@ -352,6 +346,19 @@
                 { value: "cusl.cattolica@fondazionesun.com", text: "CUSL Cattolica", phone: "+393441509052" },
                 { value: "cusl.settore@fondazionesun.com", text: "CUSL Settore", phone: "+393408452604" },
                 { value: "cusl.bovisa@fondazionesun.com", text: "CUSL Bovisa", phone: "+393423927673" }
+            ]
+        };
+
+        const coverColorOptions = {
+            it: [
+                { value: "", text: "Seleziona il colore", disabled: true },
+                { value: "Oro", text: "Oro" },
+                { value: "Argento", text: "Argento" }
+            ],
+            en: [
+                { value: "", text: "Select color", disabled: true },
+                { value: "Oro", text: "Gold" },
+                { value: "Argento", text: "Silver" }
             ]
         };
 
@@ -393,6 +400,7 @@
             populateSelect("material", materialOptions[lang]);
             populateSelect("grammatura", grammaturaOptions[lang]);
             populateSelect("shop", shopOptions[lang], true);
+            populateSelect("coverColor", coverColorOptions[lang]);
         }
 
         function sendFinalEmail() {
